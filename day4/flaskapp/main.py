@@ -9,7 +9,7 @@ def hello_world():
 
 @app.route("/bye")
 def bye():
-    return "Bye"
+    return "<h1>Bye</h1>"
 
 
 @app.route("/hello/<int:var>")
