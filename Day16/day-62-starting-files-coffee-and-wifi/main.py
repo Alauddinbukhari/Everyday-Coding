@@ -1,8 +1,8 @@
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap5
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired
+from flask_wtf import FlaskForm 
+from wtforms import StringField, SubmitField, TimeField, SelectField
+from wtforms.validators import DataRequired, URL
 import csv
 
 '''
@@ -25,7 +25,60 @@ Bootstrap5(app)
 
 class CafeForm(FlaskForm):
     cafe = StringField('Cafe name', validators=[DataRequired()])
+    location_url= StringField('location',validators=[DataRequired(),URL(message="Enter Valid URL")])
+    open_time = TimeField(
+        'Opening Time',
+        format='%H:%M',
+        validators=[DataRequired()]
+    )
+
+    closing_time = TimeField(
+        'Closing Time',
+        format='%H:%M',
+        validators=[DataRequired()]
+    )
+
+    # Ratings: stars shown, numbers stored
+    coffee_rating = SelectField(
+        'Coffee Rating',
+        choices=[
+            ('1', '⭐'),
+            ('2', '⭐⭐'),
+            ('3', '⭐⭐⭐'),
+            ('4', '⭐⭐⭐⭐'),
+            ('5', '⭐⭐⭐⭐⭐')
+        ],
+        validators=[DataRequired()]
+    )
+
+    wifi_rating = SelectField(
+        'WiFi Rating',
+        choices=[
+            ('1', '⭐'),
+            ('2', '⭐⭐'),
+            ('3', '⭐⭐⭐'),
+            ('4', '⭐⭐⭐⭐'),
+            ('5', '⭐⭐⭐⭐⭐')
+        ],
+        validators=[DataRequired()]
+    )
+
+    power_outlet_rating = SelectField(
+        'Power Outlet Rating',
+        choices=[
+            ('1', '⭐'),
+            ('2', '⭐⭐'),
+            ('3', '⭐⭐⭐'),
+            ('4', '⭐⭐⭐⭐'),
+            ('5', '⭐⭐⭐⭐⭐')
+        ],
+        validators=[DataRequired()]
+    )
+
     submit = SubmitField('Submit')
+    
+
+
 
 # Exercise:
 # add: Location URL, open time, closing time, coffee rating, wifi rating, power outlet rating fields
